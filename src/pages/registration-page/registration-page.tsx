@@ -2,7 +2,7 @@ import "./registration-page.scss";
 import uploadImageLogo from "../../assets/uploadImageLogo.svg";
 import { ChangeEvent, MutableRefObject, useRef, useState } from "react";
 
-export default function WelcomePage() {
+export default function RegistrationPage() {
   const [userImage, setUserImage] = useState<string>(uploadImageLogo);
   const userImageRef = useRef<HTMLImageElement | null>(null);
   const userImageInputRef = useRef<HTMLInputElement | null>(null);
@@ -47,8 +47,8 @@ export default function WelcomePage() {
   }
 
   return (
-    <div className="rootContainer">
-      <div className="registrationContainer">
+    <div id="regPageContainer">
+      <div id="regContainer">
         <h1>Get Started</h1>
 
         {/* form თაგში სპეციალურად არ ვსვამ(ტრივიალური იქნება, 

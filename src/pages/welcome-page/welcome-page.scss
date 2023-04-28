@@ -1,0 +1,37 @@
+body {
+  background: black;
+  margin: 0;
+}
+
+#welcomeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  color: white;
+  text-align: center;
+  * {
+    border-radius: 4px;
+  }
+}
+
+$button-margin: 20px;
+button {
+  font-size: 44px;
+  padding: 10px;
+  margin: $button-margin;
+  width: calc(100% - 2 * $button-margin);
+  max-width: 388px;
+  border: none;
+
+  &:hover {
+    transition: background-color 0.5s;
+    background-color: white;
+  }
+  &:not(:hover) {
+    transition: background-color 0.5s;
+    background-color: #5efc8d;
+  }
+}

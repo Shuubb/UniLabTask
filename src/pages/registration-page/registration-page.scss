@@ -1,88 +1,99 @@
 body {
-    background: black;
-    margin: 0;
+  background: black;
+  margin: 0;
 }
 
-.rootContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
+#regPageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
 
-    * {
-        border-radius: 4px;
-    }
+  * {
+    border-radius: 4px;
+  }
 }
 
-.registrationContainer {
-    background: white;
-    padding: 15px;
-    min-width: 320px;
-    max-width: 588px;
-    text-align: center;
-    
+#regContainer {
+  background: white;
+  padding: 15px;
+  min-width: 320px;
+  max-width: 588px;
+  text-align: center;
 
-    * {
-        margin: 10px;
-    }
-    label, button, input {
-        font-size: 22px;
-    }
-    input[type='text'] {
-        min-width: 200px;
-        width: 40vw;
-        max-width: 300px;
-        padding: 10px;
-        border: none;
-        background-color: #E6EBFF;
-    }
-    button {
-        padding: 10px;
-        min-width: 100px;
-        width: 20vw;
-        max-width: 150px;
-        border: none;
+  * {
+    margin: 10px;
+  }
+  label,
+  button,
+  input {
+    font-size: 22px;
+  }
+  input[type="text"] {
+    min-width: 200px;
+    width: 40vw;
+    max-width: 300px;
+    padding: 10px;
+    border: none;
+    background-color: #e6ebff;
+  }
+  button {
+    padding: 10px;
+    min-width: 100px;
+    width: 20vw;
+    max-width: 150px;
+    border: none;
 
-        &:hover {
-            transition: color 0.6s, background-color 0.3s;
-            background-color: black;
-            color: white;
-        }
-        &:not(:hover) {
-            transition: color 0.6s, background-color 0.3s;
-            background-color: #5EFC8D;
-            color: black;
-        }
+    &:hover {
+      transition: color 0.6s, background-color 0.3s;
+      background-color: black;
+      color: white;
     }
+    &:not(:hover) {
+      transition: color 0.6s, background-color 0.3s;
+      background-color: #5efc8d;
+      color: black;
+    }
+  }
 }
 
 #uploadImageLogo {
-    width: 40px;
-    border-radius: 100%;
-    padding: 40px;
-    overflow: visible;
+  width: 40px;
+  border-radius: 100%;
+  padding: 40px;
+  overflow: visible;
 
-    &:hover {
-        transition: background-color 0.5s;
-        background-color: #5EFC8D;
-    }
-    &:not(:hover) {
-        transition: background-color 0.5s;
-        background-color: #E6EBFF;
-    }
+  &:hover {
+    transition: background-color 0.5s;
+    background-color: #5efc8d;
+  }
+  &:not(:hover) {
+    transition: background-color 0.5s;
+    background-color: #e6ebff;
+  }
 }
 
 @keyframes shake {
-    0%   { transform: translateX( 0);    }
-    25%  { transform: translateX(-10px); }
-    50%  { transform: translateX( 10px); }
-    75%  { transform: translateX(-10px); }
-    100% { transform: translateX( 0);    }
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .shake {
-    transition: background-color 0.6s;
-    background-color: red !important;
-    animation: shake 0.5s;
+  transition: background-color 0.6s;
+  background-color: red !important;
+  animation: shake 0.5s;
 }

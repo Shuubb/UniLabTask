@@ -1,87 +1,96 @@
-import './welcome-page.scss'
-import uploadImageLogo from '../../assets/uploadImageLogo.svg'
-import { ChangeEvent, MutableRefObject, useRef, useState } from 'react'
-
+import "./welcome-page.scss";
+import uploadImageLogo from "../../assets/uploadImageLogo.svg";
+import { ChangeEvent, MutableRefObject, useRef, useState } from "react";
 
 export default function WelcomePage() {
+  const [userImage, setUserImage] = useState<string>(uploadImageLogo);
+  const userImageRef = useRef<HTMLImageElement | null>(null);
+  const userImageInputRef = useRef<HTMLInputElement | null>(null);
 
-  const [image, setImage] = useState<string>(uploadImageLogo);
-  const [imageError, setImageError] = useState<string>('');
-  const imageRef = useRef<HTMLImageElement | null>(null);
-  const imageInputRef = useRef<HTMLInputElement | null>(null);
-
-  const nameRef = useRef<HTMLInputElement | null>(null);
+  const userNameRef = useRef<HTMLInputElement | null>(null);
 
   function handleImageChange(e: ChangeEvent<HTMLInputElement>): void {
     if (!e.target.files) return;
+    const imageObject = e.target.files[0];
 
-    const regExp = /image\/.*/
-    if (regExp.test(e.target.files[0].type)){
-      setImage(URL.createObjectURL(e.target.files[0]));
-      setImageError('')
-    }else
-      setImageError('Check Format Of Image!')
-    
+    // რეგულარული გამოსახულებით ვამოწმებ ატვირთული ფაილი ფოტოს ტიპისაა თუ არა.
+    const regExp = /image\/.*/;
+    if (!regExp.test(imageObject.type)) {
+      shakeIt(userImageRef);
+      return;
+    }
+
+    const imageObjURL = URL.createObjectURL(imageObject);
+    setUserImage(imageObjURL);
   }
 
   function handleSignIn(): void {
+    let userImg = userImageInputRef.current?.files?.item(0);
+    let userName = userNameRef.current?.value;
 
-    let errorPresent: boolean = false;
-    let name: string | undefined;
+    if (!userImg) shakeIt(userImageRef);
+    if (!userName) shakeIt(userNameRef);
+    if (!userImg || !userName) return;
 
-    function shakeIt(Ref: MutableRefObject<any>): void {
-      setTimeout(() => Ref.current?.classList.add('shake'), 500);
-      Ref.current?.classList.remove('shake');
-      errorPresent = true;
-    }
+    const reader = new FileReader();
+    reader.readAsDataURL(userImg);
+    reader.onload = () => {
+      if (typeof reader.result == "string")
+        localStorage.setItem("userImage", reader.result);
+    };
+    localStorage.setItem("name", userName);
+  }
 
-    if(image == uploadImageLogo) shakeIt(imageRef)
-
-    name = nameRef.current?.value;
-    name || shakeIt(nameRef)
-
-    if(errorPresent) return 
-
-    localStorage.setItem("userImage", image)
-    if(name != undefined)                 // წესით ამის შემოწმება არც არის საჭირო(შეუძლებელია აქამდე მოსულიყო ფუნქცია თუ name = undefined) 
-      localStorage.setItem("name", name) // თუმცა TypeScript_ის კომპილატორი მიყვირის..
-
+  function shakeIt(Ref: MutableRefObject<any>): void {
+    Ref.current?.classList.add("shake");
+    setTimeout(() => Ref.current?.classList.remove("shake"), 600);
   }
 
   return (
-    <div className='rootContainer'>
-      <div className='registrationContainer'>
-          <h1>Get Started</h1>
+    <div className="rootContainer">
+      <div className="registrationContainer">
+        <h1>Get Started</h1>
 
-          {/* form თაგში სპეციალურად არ ვსვამ(ტრივიალური იქნება, 
+        {/* form თაგში სპეციალურად არ ვსვამ(ტრივიალური იქნება, 
               მაგრამ არ ვარ დარწმუნებული Best Practice_ია თუ არა) */}
-          <label htmlFor="userImage" >
-            add a photo<br/>
-            
-            <img src={image} 
-              alt='uploadImageLogo' 
-              id='uploadImageLogo' 
-              style={image != uploadImageLogo ? {overflow: 'hidden', padding: 0, width: '120px'} : undefined}
-              ref={imageRef}
-            /><br/>
-            <span className='error'>{imageError}</span>
-          </label>
-          <input 
-            type="file" 
-            id='userImage' 
-            accept="image/*"
-            hidden 
-            ref={imageInputRef}
-            onChange={handleImageChange}
-          /><br/>
-          
-          <label htmlFor="userName">fill in your name</label><br/>
-          <input type="text" id='userName' placeholder='your name' ref={nameRef} /><br/>
-          
-          <button onClick={handleSignIn}>Sign In</button>
+        <label htmlFor="userImage">
+          add a photo
+          <br />
+          <img
+            src={userImage}
+            alt="uploadImageLogo"
+            id="uploadImageLogo"
+            style={
+              userImage != uploadImageLogo
+                ? { overflow: "hidden", padding: 0, width: "120px" }
+                : undefined
+            }
+            ref={userImageRef}
+          />
+          <br />
+        </label>
+        <input
+          type="file"
+          id="userImage"
+          accept="image/*"
+          hidden
+          ref={userImageInputRef}
+          onChange={handleImageChange}
+        />
+        <br />
 
+        <label htmlFor="userName">fill in your name</label>
+        <br />
+        <input
+          type="text"
+          id="userName"
+          placeholder="your name"
+          ref={userNameRef}
+        />
+        <br />
+
+        <button onClick={handleSignIn}>Sign In</button>
       </div>
     </div>
-  )
+  );
 }
-

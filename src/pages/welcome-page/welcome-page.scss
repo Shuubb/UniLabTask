@@ -55,9 +55,6 @@ body {
             color: black;
         }
     }
-    .error {
-        color: #cc0000;
-    }
 }
 
 #uploadImageLogo {
@@ -85,5 +82,7 @@ body {
 }
 
 .shake {
+    transition: background-color 0.6s;
+    background-color: red !important;
     animation: shake 0.5s;
 }

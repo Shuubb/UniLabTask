@@ -1,4 +1,4 @@
-import "./welcome-page.scss";
+import "./registration-page.scss";
 import uploadImageLogo from "../../assets/uploadImageLogo.svg";
 import { ChangeEvent, MutableRefObject, useRef, useState } from "react";
 

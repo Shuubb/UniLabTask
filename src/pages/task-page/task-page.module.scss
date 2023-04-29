@@ -1,20 +1,5 @@
-body {
-  background: white;
-  margin: 0;
-}
-
-#welcomeContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-  color: white;
-  text-align: center;
-  * {
-    border-radius: 4px;
-  }
+.pageContainer {
+  background-color: white;
 }
 
 $button-margin: 20px;

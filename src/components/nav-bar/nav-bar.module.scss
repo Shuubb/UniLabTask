@@ -1,0 +1,30 @@
+.navBarContainer {
+  width: 100%;
+  background-color: black;
+  color: white;
+  height: 98px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0;
+  padding: 0 28px;
+  box-sizing: border-box;
+}
+
+.TODOLogo {
+  font-size: 36px;
+  margin: 0;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  * {
+    margin: 10px;
+  }
+  img {
+    width: 68px;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+  }
+}

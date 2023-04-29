@@ -1,5 +1,7 @@
 .pageContainer {
   background-color: white;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 $button-margin: 20px;

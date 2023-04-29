@@ -1,0 +1,19 @@
+.pageContainer {
+  flex-direction: column;
+  color: white;
+}
+
+$button-margin: 20px;
+.welcomeButton {
+  font-size: 44px;
+  padding: 10px;
+  margin: $button-margin;
+  width: calc(100% - 2 * $button-margin);
+  max-width: 388px;
+  border: none;
+
+  &:hover {
+    background-color: white;
+    color: black;
+  }
+}

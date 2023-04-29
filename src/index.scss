@@ -2,4 +2,37 @@
 
 body {
   font-family: poppins;
+  margin: 0;
+  background-color: black;
+}
+
+button {
+  padding: 10px;
+  min-width: 100px;
+  width: 20vw;
+  max-width: 150px;
+  border: none;
+
+  &:hover {
+    transition: color 0.6s, background-color 0.3s;
+    background-color: black;
+    color: white;
+  }
+  &:not(:hover) {
+    transition: color 0.6s, background-color 0.3s;
+    background-color: #5efc8d;
+    color: black;
+  }
+}
+
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  * {
+    border-radius: 4px;
+  }
 }

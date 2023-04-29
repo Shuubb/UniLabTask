@@ -1,13 +1,22 @@
-import "./registration-page.scss";
+import styles from "./registration-page.module.scss";
 import uploadImageLogo from "../../assets/uploadImageLogo.svg";
 import { ChangeEvent, MutableRefObject, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+export interface User {
+  name: string;
+  imageBlob: string;
+}
 
 export default function RegistrationPage() {
   const [userImage, setUserImage] = useState<string>(uploadImageLogo);
   const userImageRef = useRef<HTMLImageElement | null>(null);
   const userImageInputRef = useRef<HTMLInputElement | null>(null);
 
+  const [userName, setUserName] = useState<string>("");
   const userNameRef = useRef<HTMLInputElement | null>(null);
+
+  const navigate = useNavigate();
 
   function handleImageChange(e: ChangeEvent<HTMLInputElement>): void {
     if (!e.target.files) return;
@@ -20,25 +29,43 @@ export default function RegistrationPage() {
       return;
     }
 
-    const imageObjURL = URL.createObjectURL(imageObject);
-    setUserImage(imageObjURL);
+    const reader = new FileReader();
+    reader.readAsDataURL(imageObject);
+    reader.onload = () => {
+      const userImageDataURL = reader.result;
+      if (typeof userImageDataURL != "string") {
+        shakeIt(userImageRef);
+        return false; // მთლიანად ტოვებს handleImageChange ფუნქციას და არა მარტო onload_ს
+      }
+      setUserImage(userImageDataURL);
+    };
+  }
+
+  function handleUserNameChange(e: ChangeEvent<HTMLInputElement>): void {
+    setUserName(e.target.value);
+  }
+
+  function validateInput(): boolean {
+    let isValid = true;
+    if (userImage == uploadImageLogo) {
+      shakeIt(userImageRef);
+      isValid = false;
+    }
+    if (userName == "") {
+      shakeIt(userNameRef);
+      isValid = false;
+    }
+    return isValid;
   }
 
   function handleSignIn(): void {
-    let userImg = userImageInputRef.current?.files?.item(0);
-    let userName = userNameRef.current?.value;
+    if (!validateInput()) return;
 
-    if (!userImg) shakeIt(userImageRef);
-    if (!userName) shakeIt(userNameRef);
-    if (!userImg || !userName) return;
+    const user: User = { name: userName, imageBlob: userImage };
+    const userJSON = JSON.stringify(user);
+    localStorage.setItem("currentUser", userJSON);
 
-    const reader = new FileReader();
-    reader.readAsDataURL(userImg);
-    reader.onload = () => {
-      if (typeof reader.result == "string")
-        localStorage.setItem("userImage", reader.result);
-    };
-    localStorage.setItem("name", userName);
+    navigate("/TaskPage");
   }
 
   function shakeIt(Ref: MutableRefObject<any>): void {
@@ -47,8 +74,8 @@ export default function RegistrationPage() {
   }
 
   return (
-    <div id="regPageContainer">
-      <div id="regContainer">
+    <div className="pageContainer">
+      <div className={styles.regContainer}>
         <h1>Get Started</h1>
 
         {/* form თაგში სპეციალურად არ ვსვამ(ტრივიალური იქნება, 
@@ -59,7 +86,7 @@ export default function RegistrationPage() {
           <img
             src={userImage}
             alt="uploadImageLogo"
-            id="uploadImageLogo"
+            className={styles.uploadImageLogo}
             style={
               userImage != uploadImageLogo
                 ? { overflow: "hidden", padding: 0, width: "120px" }
@@ -72,8 +99,10 @@ export default function RegistrationPage() {
         <input
           type="file"
           id="userImage"
+          className={styles.userImage}
           accept="image/*"
           hidden
+          required
           ref={userImageInputRef}
           onChange={handleImageChange}
         />
@@ -83,9 +112,12 @@ export default function RegistrationPage() {
         <br />
         <input
           type="text"
-          id="userName"
+          className={styles.userName}
           placeholder="your name"
+          value={userName}
+          onChange={handleUserNameChange}
           ref={userNameRef}
+          required
         />
         <br />
 

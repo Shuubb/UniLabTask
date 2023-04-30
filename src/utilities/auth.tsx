@@ -7,8 +7,6 @@ export default function Auth() {
   const regExp = /\/Auth\/.*/i;
   const needsAuth = regExp.test(location);
 
-  console.log("first" + (needsAuth && !user));
-  console.log(!needsAuth && !!user);
   if (needsAuth && !user) return <Navigate to="/" />;
   else if (!needsAuth && !!user) return <Navigate to="/Auth/TaskPage" />;
   else return <Outlet />;

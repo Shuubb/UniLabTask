@@ -1,26 +1,16 @@
 .regContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background: white;
   padding: 15px;
-  min-width: 320px;
+  width: 100%;
   max-width: 588px;
-  text-align: center;
-
-  * {
-    margin: 10px;
-  }
-  label,
-  button,
-  input {
-    font-size: 22px;
-  }
-  input[type="text"] {
-    min-width: 200px;
-    width: 40vw;
-    max-width: 300px;
-    padding: 10px;
-    border: none;
-    background-color: #e6ebff;
-  }
+  height: 100%;
+  max-height: 688px;
+  margin: 10px;
+  box-sizing: border-box;
 }
 
 .uploadImageLogo {
@@ -37,28 +27,4 @@
     transition: background-color 0.5s;
     background-color: #e6ebff;
   }
-}
-
-@keyframes shake {
-  0% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-10px);
-  }
-  50% {
-    transform: translateX(10px);
-  }
-  75% {
-    transform: translateX(-10px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-.shake {
-  transition: background-color 0.6s;
-  background-color: red !important;
-  animation: shake 0.5s;
 }

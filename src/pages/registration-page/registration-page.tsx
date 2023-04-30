@@ -2,7 +2,6 @@ import styles from "./registration-page.module.scss";
 import uploadImageLogo from "../../assets/uploadImageLogo.svg";
 import { ChangeEvent, MutableRefObject, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Auth from "../../utilities/auth";
 
 export interface User {
   name: string;
@@ -82,7 +81,7 @@ export default function RegistrationPage() {
         {/* form თაგში სპეციალურად არ ვსვამ(ტრივიალური იქნება, 
                 მაგრამ არ ვარ დარწმუნებული Best Practice_ია თუ არა) */}
         <label htmlFor="userImage">
-          add a photo
+          <p>add a photo</p>
           <br />
           <img
             src={userImage}

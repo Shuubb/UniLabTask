@@ -4,21 +4,18 @@
   justify-content: flex-start;
 }
 
-$button-margin: 20px;
-button {
-  font-size: 44px;
-  padding: 10px;
-  margin: $button-margin;
-  width: calc(100% - 2 * $button-margin);
-  max-width: 388px;
-  border: none;
+.addTaskInput {
+  border-radius: 4px 0 0 4px;
+}
 
-  &:hover {
-    transition: background-color 0.5s;
-    background-color: white;
-  }
-  &:not(:hover) {
-    transition: background-color 0.5s;
-    background-color: #5efc8d;
-  }
+.addTaskButton {
+  margin: 0;
+  padding: 0;
+  width: 108px;
+  height: 76px;
+  border-radius: 0 4px 4px 0;
+}
+
+.inputContainer {
+  display: flex;
 }

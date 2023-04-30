@@ -1,19 +1,17 @@
+$NavBarHeight: 98px;
+$NavBarHorizontalPadding: 28px;
+
 .navBarContainer {
   width: 100%;
   background-color: black;
   color: white;
-  height: 98px;
+  height: $NavBarHeight;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-radius: 0;
   padding: 0 28px;
   box-sizing: border-box;
-}
-
-.TODOLogo {
-  font-size: 36px;
-  margin: 0;
 }
 
 .userInfo {
@@ -26,5 +24,19 @@
     width: 68px;
     aspect-ratio: 1/1;
     border-radius: 100%;
+  }
+}
+
+.dropDown {
+  position: absolute;
+  right: $NavBarHorizontalPadding;
+  top: calc($NavBarHeight - 5px);
+  background-color: white;
+  border: 1px solid black;
+  padding: 5px;
+
+  button {
+    font-size: 22px;
+    line-height: 33px;
   }
 }

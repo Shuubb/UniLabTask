@@ -1,17 +1,12 @@
+import User from "../../utilities/models/user";
 import styles from "./nav-bar.module.scss";
-import { User } from "../../pages/registration-page/registration-page";
+
 import { useState } from "react";
 
 export default function NavBar() {
   const [userMenuVisibility, setUserMenuVisibility] = useState(false);
 
-  const retData = localStorage.getItem("currentUser");
-  let user: User = JSON.parse(retData!);
-
-  function handleSignOut(): void {
-    localStorage.removeItem("currentUser");
-    location.reload();
-  }
+  const user = new User();
 
   return (
     <nav className={styles.navBarContainer}>
@@ -19,14 +14,14 @@ export default function NavBar() {
       <div className={styles.userInfo}>
         <p>{user.name}</p>
         <img
-          src={user.imageBlob}
+          src={user.imageDataURL}
           onClick={() => setUserMenuVisibility(!userMenuVisibility)}
         ></img>
       </div>
       {userMenuVisibility && (
         <div className={styles.dropDown}>
           <hr />
-          <button onClick={handleSignOut}>Sign Out</button>
+          <button onClick={() => user.signOut()}>Sign Out</button>
         </div>
       )}
     </nav>

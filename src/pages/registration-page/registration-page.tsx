@@ -1,12 +1,8 @@
 import styles from "./registration-page.module.scss";
 import uploadImageLogo from "../../assets/uploadImageLogo.svg";
 import { ChangeEvent, MutableRefObject, useRef, useState } from "react";
+import User from "../../utilities/models/user";
 import { useNavigate } from "react-router-dom";
-
-export interface User {
-  name: string;
-  imageBlob: string;
-}
 
 export default function RegistrationPage() {
   const [userImage, setUserImage] = useState<string>(uploadImageLogo);
@@ -61,9 +57,8 @@ export default function RegistrationPage() {
   function handleSignIn(): void {
     if (!validateInput()) return;
 
-    const user: User = { name: userName, imageBlob: userImage };
-    const userJSON = JSON.stringify(user);
-    localStorage.setItem("currentUser", userJSON);
+    const user = new User();
+    user.createUser(userName, userImage);
 
     navigate("/Auth/TaskPage");
   }

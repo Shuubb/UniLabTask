@@ -1,0 +1,45 @@
+.taskContainer {
+  background-color: black;
+  color: white;
+  width: 100%;
+  margin: 8px 0;
+  padding: 0 0 0 24px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controlButtonsContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.deleteButton {
+  padding: 13px;
+
+  &:hover {
+    transition: background-color 1s;
+    background-color: #fc5e5e;
+  }
+  &:not(:hover) {
+    transition: background-color 1s;
+    background-color: transparent;
+  }
+}
+.doneButton {
+  padding: 13px;
+
+  &:hover {
+    transition: background-color 1s;
+    background-color: #5efc8d;
+  }
+  &:not(:hover) {
+    transition: background-color 1s;
+    background-color: transparent;
+  }
+}
+
+.gray {
+  background-color: #f0ecec;
+}

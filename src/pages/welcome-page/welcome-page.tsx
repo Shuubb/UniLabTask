@@ -14,7 +14,6 @@ export default function WelcomePage() {
         className={styles.welcomeButton}
         onClick={() => {
           navigate("/Register");
-          window.location.reload();
         }}
       >
         Get Started

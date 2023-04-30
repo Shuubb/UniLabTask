@@ -2,6 +2,7 @@ import styles from "./registration-page.module.scss";
 import uploadImageLogo from "../../assets/uploadImageLogo.svg";
 import { ChangeEvent, MutableRefObject, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Auth from "../../utilities/auth";
 
 export interface User {
   name: string;
@@ -65,7 +66,7 @@ export default function RegistrationPage() {
     const userJSON = JSON.stringify(user);
     localStorage.setItem("currentUser", userJSON);
 
-    navigate("/TaskPage");
+    navigate("/Auth/TaskPage");
   }
 
   function shakeIt(Ref: MutableRefObject<any>): void {
@@ -79,7 +80,7 @@ export default function RegistrationPage() {
         <h1>Get Started</h1>
 
         {/* form თაგში სპეციალურად არ ვსვამ(ტრივიალური იქნება, 
-              მაგრამ არ ვარ დარწმუნებული Best Practice_ია თუ არა) */}
+                მაგრამ არ ვარ დარწმუნებული Best Practice_ია თუ არა) */}
         <label htmlFor="userImage">
           add a photo
           <br />

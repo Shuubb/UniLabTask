@@ -6,8 +6,6 @@ import { User } from "../../pages/registration-page/registration-page";
 type Props = {};
 
 export default function NavBar() {
-  const navigate = useNavigate();
-
   const retData = localStorage.getItem("currentUser");
   let user: User;
   if (retData) user = JSON.parse(retData);

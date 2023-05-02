@@ -20,8 +20,10 @@ export default function WelcomePage() {
 
   return (
     <div className={classNames(styles.pageContainer, "pageContainer")}>
-      <img src={toDoLogo} alt="toDoLogo" />
-      <h1>Keep track of daily tasks in life</h1>
+      <div>
+        <img src={toDoLogo} alt="toDoLogo" />
+        <h1>Keep track of daily tasks in life</h1>
+      </div>
       <button
         className={styles.welcomeButton}
         onClick={() => {

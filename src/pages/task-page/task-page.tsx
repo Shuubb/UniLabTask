@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 export default function TaskPage() {
   const userRef = useRef(new User());
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const [inputTask, setInputTask] = useState("");
   const [tasks, setTasks] = useState(displayTasks());
@@ -18,6 +19,7 @@ export default function TaskPage() {
     userRef.current.addTask(inputTask);
     setTasks(displayTasks());
     setInputTask("");
+    inputRef.current?.focus();
   }
 
   function displayTasks(): JSX.Element {
@@ -42,6 +44,7 @@ export default function TaskPage() {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent): void {
       if (e.key === "Enter") buttonRef.current?.click();
+      if (e.key === " ") inputRef.current?.focus();
     }
 
     window.addEventListener("keydown", handleKeyDown);
@@ -63,6 +66,7 @@ export default function TaskPage() {
               placeholder="my task"
               title="Write Your Task Please!"
               value={inputTask}
+              ref={inputRef}
               onChange={(e) => setInputTask(e.target.value)}
             />
             <button

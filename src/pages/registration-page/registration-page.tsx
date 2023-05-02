@@ -1,6 +1,12 @@
 import styles from "./registration-page.module.scss";
 import uploadImageLogo from "../../assets/uploadImageLogo.svg";
-import { ChangeEvent, MutableRefObject, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  MutableRefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import User from "../../utilities/models/user";
 import { useNavigate } from "react-router-dom";
 
@@ -11,6 +17,8 @@ export default function RegistrationPage() {
 
   const [userName, setUserName] = useState<string>("");
   const userNameRef = useRef<HTMLInputElement | null>(null);
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const navigate = useNavigate();
 
@@ -68,6 +76,16 @@ export default function RegistrationPage() {
     setTimeout(() => Ref.current?.classList.remove("shake"), 600);
   }
 
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent): void {
+      if (e.key === "Enter") buttonRef.current?.click();
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <div className="pageContainer">
       <div className={styles.regContainer}>
@@ -120,7 +138,11 @@ export default function RegistrationPage() {
           />
         </div>
 
-        <button className={styles.signInButton} onClick={handleSignIn}>
+        <button
+          className={styles.signInButton}
+          onClick={handleSignIn}
+          ref={buttonRef}
+        >
           Sign In
         </button>
       </div>

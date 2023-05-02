@@ -3,10 +3,11 @@ import classNames from "classnames";
 import NavBar from "../../components/nav-bar/nav-bar";
 import Task from "../../components/task/task";
 import User from "../../utilities/models/user";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function TaskPage() {
   const userRef = useRef(new User());
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const [inputTask, setInputTask] = useState("");
   const [tasks, setTasks] = useState(displayTasks());
@@ -38,6 +39,16 @@ export default function TaskPage() {
     );
   }
 
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent): void {
+      if (e.key === "Enter") buttonRef.current?.click();
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <>
       <div className={classNames(styles.pageContainer, "pageContainer")}>
@@ -54,7 +65,11 @@ export default function TaskPage() {
               value={inputTask}
               onChange={(e) => setInputTask(e.target.value)}
             />
-            <button className={styles.addTaskButton} onClick={handleTaskSubmit}>
+            <button
+              className={styles.addTaskButton}
+              onClick={handleTaskSubmit}
+              ref={buttonRef}
+            >
               Add
             </button>
           </div>

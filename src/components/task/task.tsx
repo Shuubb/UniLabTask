@@ -1,7 +1,7 @@
 import styles from "./task.module.scss";
 import DeleteForeverSvg from "../../assets/deleteForever.svg";
 import DoneSvg from "../../assets/done.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import User, { TaskType } from "../../utilities/models/user";
 import classNames from "classnames";
 

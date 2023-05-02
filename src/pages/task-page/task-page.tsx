@@ -3,20 +3,39 @@ import classNames from "classnames";
 import NavBar from "../../components/nav-bar/nav-bar";
 import Task from "../../components/task/task";
 import User from "../../utilities/models/user";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function TaskPage() {
-  const user = new User();
+  const userRef = useRef(new User());
 
   const [inputTask, setInputTask] = useState("");
-  const [tasks, setTasks] = useState(user.tasks);
+  const [tasks, setTasks] = useState(displayTasks());
 
   function handleTaskSubmit(): void {
     if (!inputTask) return;
 
-    user.addTask(inputTask);
-    setTasks(user.tasks);
+    userRef.current.addTask(inputTask);
+    setTasks(displayTasks());
     setInputTask("");
+  }
+
+  function displayTasks(): JSX.Element {
+    const taskObjs = userRef.current.tasks;
+
+    if (!taskObjs) return <></>;
+    return (
+      <>
+        {taskObjs.map((task, index) => (
+          <Task
+            task={task}
+            index={index}
+            user={userRef.current}
+            key={"task" + index}
+            reRender={() => setTasks(displayTasks())}
+          />
+        ))}
+      </>
+    );
   }
 
   return (
@@ -39,18 +58,7 @@ export default function TaskPage() {
               Add
             </button>
           </div>
-          <div>
-            {tasks &&
-              tasks.map((task, index) => (
-                <Task
-                  task={task}
-                  index={index}
-                  user={user}
-                  key={"task" + index}
-                  reRender={() => setTasks(user.tasks)}
-                />
-              ))}
-          </div>
+          <div>{tasks}</div>
         </div>
       </div>
     </>

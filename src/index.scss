@@ -1,31 +1,36 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Poppins:wght@300;600&display=swap");
 
+@mixin my-font($font-size, $font-weight: normal) {
+  font: #{$font-weight} #{$font-size}/ 1.5 Poppins;
+}
+
+$bigFont: 48px;
+$mediumFont: 32px;
+$smallFont: 22px;
+
 body {
-  font-family: Poppins;
+  @include my-font($mediumFont);
   margin: 0;
   background-color: black;
 }
 
 input,
-button,
-label,
-p,
 div {
-  font-size: 22px;
-  line-height: 33px;
+  @include my-font($smallFont);
+}
+
+p {
   margin: 0;
 }
 
 h1 {
-  font-size: 48px;
-  line-height: 72px;
+  @include my-font($bigFont, bold);
+  margin: 0;
 }
 
 button {
-  font-size: 32px;
-  line-height: 48px;
-  padding: 15px 20px;
-
+  @include my-font($mediumFont);
+  padding: 14px 20px;
   max-width: 150px;
   border: none;
 
@@ -55,8 +60,10 @@ input[type="text"] {
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
   * {
     border-radius: 4px;
   }
@@ -84,4 +91,25 @@ input[type="text"] {
   transition: background-color 0.6s;
   background-color: red !important;
   animation: shake 0.5s;
+}
+
+@media only screen and (max-width: 500px) {
+  $bigFont: 32px;
+  $mediumFont: 24px;
+  $smallFont: 20px;
+
+  input,
+  label,
+  p,
+  div {
+    @include my-font($smallFont);
+  }
+
+  h1 {
+    @include my-font($bigFont, bold);
+  }
+
+  button {
+    @include my-font($mediumFont);
+  }
 }

@@ -24,7 +24,7 @@ export default function TaskPage() {
       <div className={classNames(styles.pageContainer, "pageContainer")}>
         <NavBar />
 
-        <div className={styles.controlContainer}>
+        <div className={styles.taskControlContainer}>
           <h1>Add Your Daily Tasks</h1>
           <div className={styles.inputContainer}>
             <input

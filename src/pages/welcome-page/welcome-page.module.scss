@@ -14,3 +14,10 @@
     color: black;
   }
 }
+
+@media screen and (max-width: 566px) {
+  .welcomeButton {
+    font-size: 32px;
+    line-height: 48px;
+  }
+}

@@ -5,7 +5,7 @@ import User from "../../utilities/models/user";
 import { useNavigate } from "react-router-dom";
 
 export default function RegistrationPage() {
-  const [userImage, setUserImage] = useState<string>(uploadImageLogo);
+  const [userImage, setUserImage] = useState<string | undefined>(undefined);
   const userImageRef = useRef<HTMLImageElement | null>(null);
   const userImageInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -15,7 +15,7 @@ export default function RegistrationPage() {
   const navigate = useNavigate();
 
   function handleImageChange(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.files) return;
+    if (!e.target.files || !e.target.files[0]) return;
     const imageObject = e.target.files[0];
 
     // რეგულარული გამოსახულებით ვამოწმებ ატვირთული ფაილი ფოტოს ტიპისაა თუ არა.
@@ -58,7 +58,7 @@ export default function RegistrationPage() {
     if (!validateInput()) return;
 
     const user = new User();
-    user.createUser(userName, userImage);
+    user.createUser(userName, userImage!);
 
     navigate("/Auth/TaskPage");
   }
@@ -71,52 +71,58 @@ export default function RegistrationPage() {
   return (
     <div className="pageContainer">
       <div className={styles.regContainer}>
-        <h1>Get Started</h1>
-
         {/* form თაგში სპეციალურად არ ვსვამ(ტრივიალური იქნება, 
                 მაგრამ არ ვარ დარწმუნებული Best Practice_ია თუ არა) */}
-        <label htmlFor="userImage">
-          <p>add a photo</p>
-          <br />
-          <img
-            src={userImage}
-            alt="uploadImageLogo"
-            className={styles.uploadImageLogo}
-            style={
-              userImage != uploadImageLogo
-                ? { overflow: "hidden", padding: 0, width: "120px" }
-                : undefined
-            }
-            ref={userImageRef}
+        <h1>Get Started</h1>
+
+        <div>
+          <label htmlFor="userImage" className={styles.imageLabel}>
+            <p>add a photo</p>
+            <div className={styles.imageContainer}>
+              {userImage ? (
+                <img
+                  src={userImage}
+                  alt="userImage"
+                  className={styles.userImage}
+                  ref={userImageRef}
+                />
+              ) : (
+                <img
+                  src={uploadImageLogo}
+                  alt="uploadImageLogo"
+                  className={styles.uploadImageLogo}
+                />
+              )}
+            </div>
+          </label>
+          <input
+            type="file"
+            id="userImage"
+            className={styles.userImage}
+            accept="image/*"
+            hidden
+            required
+            ref={userImageInputRef}
+            onChange={handleImageChange}
           />
-          <br />
-        </label>
-        <input
-          type="file"
-          id="userImage"
-          className={styles.userImage}
-          accept="image/*"
-          hidden
-          required
-          ref={userImageInputRef}
-          onChange={handleImageChange}
-        />
-        <br />
+        </div>
 
-        <label htmlFor="userName">fill in your name</label>
-        <br />
-        <input
-          type="text"
-          className={styles.userName}
-          placeholder="your name"
-          value={userName}
-          onChange={handleUserNameChange}
-          ref={userNameRef}
-          required
-        />
-        <br />
+        <div>
+          <label htmlFor="userName">fill in your name</label>
+          <input
+            type="text"
+            className={styles.userName}
+            placeholder="your name"
+            value={userName}
+            onChange={handleUserNameChange}
+            ref={userNameRef}
+            required
+          />
+        </div>
 
-        <button onClick={handleSignIn}>Sign In</button>
+        <button className={styles.signInButton} onClick={handleSignIn}>
+          Sign In
+        </button>
       </div>
     </div>
   );

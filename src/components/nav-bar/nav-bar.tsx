@@ -13,10 +13,13 @@ export default function NavBar() {
       <h1 className={styles.TODOLogo}>TO DO</h1>
       <div className={styles.userInfo}>
         <p>{user.name}</p>
-        <img
-          src={user.imageDataURL}
-          onClick={() => setUserMenuVisibility(!userMenuVisibility)}
-        ></img>
+        <div className={styles.userImageContainer}>
+          <img
+            className={styles.userImage}
+            src={user.imageDataURL}
+            onClick={() => setUserMenuVisibility(!userMenuVisibility)}
+          />
+        </div>
       </div>
       {userMenuVisibility && (
         <div className={styles.dropDown}>

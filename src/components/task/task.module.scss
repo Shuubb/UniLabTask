@@ -8,6 +8,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  p {
+    user-select: none;
+    overflow: hidden;
+    position: relative;
+
+    &:hover {
+      cursor: grab;
+    }
+  }
 }
 
 .controlButtonsContainer {

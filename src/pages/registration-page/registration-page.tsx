@@ -51,7 +51,7 @@ export default function RegistrationPage() {
 
   function validateInput(): boolean {
     let isValid = true;
-    if (userImage == uploadImageLogo) {
+    if (!userImage) {
       shakeIt(userImageRef);
       isValid = false;
     }
@@ -96,13 +96,12 @@ export default function RegistrationPage() {
         <div>
           <label htmlFor="userImage" className={styles.imageLabel}>
             <p>add a photo</p>
-            <div className={styles.imageContainer}>
+            <div className={styles.imageContainer} ref={userImageRef}>
               {userImage ? (
                 <img
                   src={userImage}
                   alt="userImage"
                   className={styles.userImage}
-                  ref={userImageRef}
                 />
               ) : (
                 <img

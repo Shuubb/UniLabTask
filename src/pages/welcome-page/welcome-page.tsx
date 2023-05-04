@@ -1,5 +1,5 @@
 import styles from "./welcome-page.module.scss";
-import toDoLogo from "../../assets/ToDoLogo.svg";
+import toDoLogo from "../../assets/toDoLogo.svg";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { useEffect, useRef } from "react";
